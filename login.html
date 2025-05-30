@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng nhập - Đồ bơi thiết kế riêng</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header a {
+      font-family: open sans-serif;
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #3498db;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      font-size: 16px;
+    }
+
+    header input[type="text"] {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    header input[type="text"]:focus {
+      border-color: #3498db;
+    }
+
+    header select {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 80px;
+      padding: 30px;
+      background-color: #f5f5f5;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-container h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .login-container label {
+      font-size: 14px;
+      color: #2c3e50;
+    }
+
+    .login-container input {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      outline: none;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .login-container input:hover {
+      border-color: #3498db;
+      background-color: #fff;
+    }
+
+    .login-container input:focus {
+      border-color: #3498db;
+    }
+
+    .login-container button {
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #2980b9;
+    }
+
+    .login-container .links {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .login-container .links a {
+      color: #3498db;
+      text-decoration: none;
+      font-size: 14px;
+      margin: 0 10px;
+    }
+
+    .login-container .links a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      main {
+        padding: 20px;
+      }
+
+      .login-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div><a href="/"><strong>OCEAN BLISS</strong></a></div>
+    <input type="text" placeholder="Tìm kiếm..." />
+    <nav>
+      <a href="/">Trang chủ</a>
+      <a href="{{ url_for('custom_page') }}">Thiết kế riêng</a>
+      <a href="{{ url_for('lookbook') }}">Lookbook</a>
+      <a href="{{ url_for('contact') }}">Liên hệ</a>
+    </nav>
+
+    <div>
+      🛒 <a href="{{ url_for('cart') }}">Giỏ hàng</a> |
+      👤 <a href="/account">Tài khoản</a> |
+      <a href="{{ url_for('language') }}">Ngôn ngữ</a> |
+      🌐 <select><option>VNĐ</option><option>USD</option></select>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="login-container">
+      <h2>Đăng nhập</h2>
+      <form method="POST">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit">Đăng nhập</button>
+      </form>
+      <div class="links">
+        <a href="/forgot-password">Quên mật khẩu?</a> |
+        <a href="/signup">Đăng ký</a>
+      </div>
+      {% if error %}
+        <p class="error">{{ error }}</p>
+      {% endif %}
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Đồ bơi thiết kế riêng. Liên hệ: <a href="mailto:contact@example.com">contact@example.com</a>
+  </footer>
+</body>
+</html>

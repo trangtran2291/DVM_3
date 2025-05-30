@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiết kế đồ bơi riêng</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 9999px;
+      border: 2px solid #ccc;
+      cursor: pointer;
+    }
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header a {
+      font-family: open sans-serif;
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #3498db;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      font-size: 16px;
+    }
+
+    header input[type="text"] {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    header input[type="text"]:focus {
+      border-color: #3498db;
+    }
+
+    header select {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    main {
+      padding: 30px;
+      background-color: #f5f5f5;
+      flex: 1;
+    }
+
+    .container {
+      margin-top: 80px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    h3 {
+      font-size: 20px;
+      margin: 20px 0 10px;
+      color: #2c3e50;
+    }
+
+    footer {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      margin-top: auto;
+    }
+    footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Header -->
+    <header>
+        <div><a href="/"><strong>OCEAN BLISS</strong></a></div>
+        <input type="text" placeholder="Tìm kiếm..." />
+        <nav>
+        <a href="/">Trang chủ</a>
+        <a href="{{ url_for('custom_page') }}">Thiết kế riêng</a>
+        <a href="{{ url_for('lookbook') }}">Lookbook</a>
+        <a href="{{ url_for('contact') }}">Liên hệ</a>
+        </nav>
+  
+        <div>
+        🛒 <a href="{{ url_for('cart') }}">Giỏ hàng</a> |
+        👤 <a href="/account">Tài khoản</a> |
+        <a href="{{ url_for('language') }}">Ngôn ngữ</a> |
+        🌐 <select><option>VNĐ</option><option>USD</option></select>
+        </div>
+    </header>
+
+  <div class="container mx-auto px-4 py-6">
+    <!-- Main layout -->
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Product image -->
+      <div class="lg:w-1/2">
+        <div class="aspect-w-1 aspect-h-1">
+          <img id="mainImage" src="{{ url_for('static', filename='images/bikini-black.jpg') }}" alt="Mẫu đồ bơi" class="w-full h-auto object-cover rounded-xl shadow" />
+        </div>
+        <button class="mt-2 text-sm text-blue-600">Phóng to / Xem chi tiết</button>
+      </div>
+      <!-- Customization Panel -->
+      <div class="lg:w-1/2 bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-semibold mb-4" style="font-size: 30px;">Thiết kế đồ bơi của bạn</h2>
+
+        <!-- Kiểu dáng -->
+        <div class="mb-4">
+          <h3 class="font-semibold mb-2">✨ Chọn kiểu dáng:</h3>
+          <div class="flex flex-wrap gap-2">
+            <button class="style-option px-3 py-1 bg-gray-200 rounded-full" data-style="bikini">Bikini</button>
+            <button class="style-option px-3 py-1 bg-gray-200 rounded-full" data-style="one-piece">One-piece</button>
+            <button class="style-option px-3 py-1 bg-gray-200 rounded-full" data-style="tankini">Tankini</button>
+            <button class="style-option px-3 py-1 bg-gray-200 rounded-full" data-style="high-waist">High-waist</button>
+            <button class="style-option px-3 py-1 bg-gray-200 rounded-full" data-style="halter">Halter</button>
+            <button class="style-option px-3 py-1 bg-gray-200 rounded-full" data-style="cut-out">Cut-out</button>
+          </div>
+        </div>
+
+        <!-- Màu sắc / hoạ tiết -->
+        <div class="mb-4">
+          <h3 class="font-semibold mb-2">🎨 Màu sắc / hoạ tiết:</h3>
+          <div class="flex flex-wrap gap-2">
+            <div class="color-swatch bg-black" data-color="black"></div>
+            <div class="color-swatch bg-red-500" data-color="red"></div>
+            <div class="color-swatch bg-blue-500" data-color="blue"></div>
+            <div class="color-swatch bg-green-500" data-color="green"></div>
+            <div class="color-swatch bg-yellow-400" data-color="yellow"></div>
+            <div class="color-swatch bg-pink-400" data-color="pink"></div>
+          </div>
+        </div>
+
+        <!-- Size -->
+        <div class="mb-4">
+          <h3 class="font-semibold mb-2">📏 Chọn size:</h3>
+          <select class="w-full border p-2 rounded">
+            <option>XS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+            <option>Nhập số đo riêng</option>
+          </select>
+          <div class="mt-2 grid grid-cols-2 gap-2">
+            <input class="border p-1 rounded" placeholder="Ngực (cm)">
+            <input class="border p-1 rounded" placeholder="Eo (cm)">
+            <input class="border p-1 rounded" placeholder="Mông (cm)">
+            <input class="border p-1 rounded" placeholder="Chiều cao (cm)">
+          </div>
+        </div>
+
+        <!-- Personalization -->
+        <div class="mb-4">
+          <h3 class="font-semibold mb-2">✍️ Thêm tên / ký hiệu:</h3>
+          <input type="text" placeholder="Nhập tên hoặc ký hiệu" class="w-full border p-2 rounded" />
+        </div>
+
+        <!-- Chất liệu -->
+        <div class="mb-4">
+          <h3 class="font-semibold mb-2">📦 Chất liệu:</h3>
+          <select class="w-full border p-2 rounded">
+            <option>Cotton pha - Mềm mại, thoáng</option>
+            <option>Polyamide - Bền, nhẹ</option>
+            <option>Nylon tái chế - Thân thiện môi trường</option>
+          </select>
+        </div>
+
+        <!-- Giá & thời gian may -->
+        <div class="mb-4">
+          <p class="font-semibold">💸 Giá: <span class="text-red-500 font-bold">650.000đ</span></p>
+          <p>Thời gian may dự kiến: 4–6 ngày làm việc</p>
+        </div>
+
+       
+        <!-- CTA -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button onclick="window.location.href='/checkout'" 
+            class="w-full sm:w-1/2 bg-black text-white py-3 rounded-xl text-lg font-semibold hover:bg-pink-600">
+            Đặt thiết kế này
+          </button>
+
+          <button onclick="alert('Đã thêm vào giỏ hàng!')" 
+            class="w-full sm:w-1/2 bg-black text-white py-3 rounded-xl text-lg font-semibold hover:bg-pink-600">
+            Thêm vào giỏ hàng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mô tả chi tiết & hướng dẫn -->
+    <div class="mt-8 bg-white p-6 rounded-xl shadow">
+      <h3 class="text-xl font-semibold mb-4">Chi tiết sản phẩm & Hướng dẫn</h3>
+      <div class="space-y-2">
+        <details class="border rounded p-2">
+          <summary class="font-medium cursor-pointer">Mô tả chất liệu</summary>
+          <p>Các chất liệu được chọn lọc kỹ lưỡng, đảm bảo sự thoải mái & thời trang.</p>
+        </details>
+        <details class="border rounded p-2">
+          <summary class="font-medium cursor-pointer">Hướng dẫn chăm sóc</summary>
+          <p>Giặt tay bằng nước lạnh, tránh ánh nắng trực tiếp.</p>
+        </details>
+        <details class="border rounded p-2">
+          <summary class="font-medium cursor-pointer">Chính sách đổi trả</summary>
+          <p>Chấp nhận đổi size trong 3 ngày kể từ khi nhận hàng.</p>
+        </details>
+      </div>
+    </div>
+
+      <!-- Hỗ trợ trực tiếp -->
+    <button class="fixed bottom-6 right-6 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600">
+      💬
+    </button>
+  </div>
+
+  <script>
+    // Get DOM elements
+    const mainImage = document.getElementById('mainImage');
+    const styleButtons = document.querySelectorAll('.style-option');
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+
+    // Initial state: Set to bikini-black.jpg
+    let currentStyle = 'bikini';
+    let currentColor = 'black';
+    updateImage();
+
+    // Function to update the image based on style and color
+    function updateImage() {
+      const imagePath = `{{ url_for('static', filename='') }}${currentStyle}-${currentColor}.jpg`;
+      mainImage.src = imagePath;
+      mainImage.alt = `Mẫu đồ bơi ${currentStyle} màu ${currentColor}`;
+    }
+
+    // Handle style button clicks
+    styleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons and add to clicked one
+        styleButtons.forEach(btn => btn.classList.remove('bg-blue-300'));
+        button.classList.add('bg-blue-300');
+
+        // Update current style and reset to black by default
+        currentStyle = button.getAttribute('data-style');
+        currentColor = 'black'; // Reset to black when style changes
+        updateImage();
+
+        // Reset color swatch highlights
+        colorSwatches.forEach(swatch => swatch.classList.remove('border-4', 'border-blue-500'));
+        document.querySelector(`.color-swatch[data-color="black"]`).classList.add('border-4', 'border-blue-500');
+      });
+    });
+
+    // Handle color swatch clicks
+    colorSwatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        // Remove active border from all swatches and add to clicked one
+        colorSwatches.forEach(s => s.classList.remove('border-4', 'border-blue-500'));
+        swatch.classList.add('border-4', 'border-blue-500');
+
+        // Update current color
+        currentColor = swatch.getAttribute('data-color');
+        updateImage();
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trang chủ - Đồ bơi thiết kế riêng</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header a {
+      font-family: open sans-serif;
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #3498db;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      font-size: 16px;
+    }
+
+    header input[type="text"] {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    header input[type="text"]:focus {
+      border-color: #3498db;
+    }
+
+    header select {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    /* Container and Layout */
+    .container {
+      margin-top: 60px;
+      display: flex;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Sidebar Styles */
+    aside {
+      width: 250px;
+      background-color: #ffffff;
+      padding: 20px;
+      height: calc(100vh - 80px);
+      overflow-y: auto;
+      border-right: 1px solid #eee;
+      flex-shrink: 0; /* Prevent sidebar from shrinking */
+    }
+
+    #filters {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    #filters select {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    #filters select:hover {
+      border-color: #3498db;
+      background-color: #fff;
+    }
+
+    #filters select:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: 30px;
+      background-color: #f5f5f5;
+    }
+
+    /* Banner Styles */
+    .banner {
+      width: 100%;
+      height: 350px;
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .banner img.active {
+      opacity: 1;
+    }
+
+    /* Product List */
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .product-item {
+      background-color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .product-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-item img {
+      width: 100%;
+      /* max-width: 250px; */
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .product-item h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #2c3e50;
+    }
+
+    .product-item p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .product-item button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .product-item button:hover {
+      background-color: #2980b9;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .product-list {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .product-item img {
+        max-width: 200px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      aside {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      .product-list {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+
+      .product-item img {
+        max-width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div><a href="/"><strong>OCEAN BLISS</strong></a></div>
+    <input type="text" placeholder="Tìm kiếm..." />
+    <nav>
+      <a href="/">Trang chủ</a>
+      <a href="{{ url_for('custom_page') }}">Thiết kế riêng</a>
+      <a href="{{ url_for('lookbook') }}">Lookbook</a>
+      <a href="{{ url_for('contact') }}">Liên hệ</a>
+    </nav>
+
+    <div>
+      🛒 <a href="{{ url_for('cart') }}">Giỏ hàng</a> |
+      👤 <a href="/account">Tài khoản</a> |
+      <a href="{{ url_for('language') }}">Ngôn ngữ</a> |
+      🌐 <select><option>VNĐ</option><option>USD</option></select>
+    </div>
+  </header>
+
+  <!-- Sidebar & Main -->
+  <div class="container">
+    <aside>
+      <div id="filters">
+        <select id="category-filter" onchange="applyFilters()">
+          <option value="">Danh mục sản phẩm</option>
+          <option value="Đồ bơi nữ">Đồ bơi nữ</option>
+          <option value="Đồ bơi nam">Đồ bơi nam</option>
+          <option value="Đồ bơi trẻ em">Đồ bơi trẻ em</option>
+          <!-- <option value="Bộ sưu tập mới">Bộ sưu tập mới</option> -->
+        </select>
+
+        <select id="color-filter" onchange="applyFilters()">
+          <option value="">Màu sắc</option>
+          <option value="Trắng">Trắng</option>
+          <option value="Đen">Đen</option>
+          <option value="Đỏ">Đỏ</option>
+          <option value="Xanh biển">Xanh biển</option>
+          <!-- <option value="Hồng">Hồng</option> -->
+        </select>
+
+        <select id="size-filter" onchange="applyFilters()">
+          <option value="">Chọn Size</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+        </select>
+      </div>
+    </aside>
+
+    <main>
+      <!-- Banner -->
+      <div class="banner">
+        <img src="{{ url_for('static', filename='banner1.jpg') }}" class="active" alt="Banner 1">
+        <img src="{{ url_for('static', filename='banner2.webp') }}" alt="Banner 2">
+        <img src="{{ url_for('static', filename='banner3.jpg') }}" alt="Banner 3">
+      </div>
+
+      <!-- Sản phẩm -->
+      <h2>Sản phẩm nổi bật</h2>
+      <div id="product-list" class="product-list">
+        {% if products %}
+          {% for product in products %}
+            <div class="product-item">
+              <img src="{{ url_for('static', filename=product['hinh_anh']) }}" alt="{{ product['ten_san_pham'] }}" width="100%">
+              <h4>{{ product['ten_san_pham'] }}</h4>
+              <p>Giá: {{ product['gia_ban'] }} VND</p>
+              <p>Size: {{ product['ten_kich_co'] or 'N/A' }} | Màu: {{ product['ten_mau'] or 'N/A' }} | Danh mục: {{ product['ten_danh_muc'] or 'N/A' }}</p>
+              <button class="add-to-cart" data-variant-id="{{ product['id'] }}">Thêm vào giỏ</button>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>Không có sản phẩm nào để hiển thị.</p>
+        {% endif %}
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        © 2025 Đồ bơi thiết kế riêng. Liên hệ: <a href="mailto:contact@example.com">contact@example.com</a>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Auto switch banner mỗi 5 giây
+    const banners = document.querySelectorAll('.banner img');
+    let current = 0;
+    setInterval(() => {
+      banners[current].classList.remove('active');
+      current = (current + 1) % banners.length;
+      banners[current].classList.add('active');
+    }, 5000);
+
+    function applyFilters() {
+      const size = document.getElementById('size-filter').value;
+      const color = document.getElementById('color-filter').value;
+      const category = document.getElementById('category-filter').value;
+
+      const params = new URLSearchParams();
+      if (size) params.append('size', size);
+      if (color) params.append('color', color);
+      if (category) params.append('category', category);
+
+      fetch('/api/homepage?' + params.toString())
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('product-list');
+          container.innerHTML = '';
+
+          if (data.length === 0) {
+            container.innerHTML = '<p>Không tìm thấy sản phẩm phù hợp.</p>';
+            return;
+          }
+
+          data.forEach(product => {
+            const item = document.createElement('div');
+            item.className = 'product-item';
+            item.innerHTML = `
+              <img src="/static/${product.hinh_anh}" alt="${product.ten_san_pham}">
+              <h4>${product.ten_san_pham}</h4>
+              <p>Giá: ${product.gia_ban} VND</p>
+              <p>Size: ${product.ten_kich_co || 'N/A'} | Màu: ${product.ten_mau || 'N/A'} | Danh mục: ${product.ten_danh_muc || 'N/A'}</p>
+              <button>Thêm vào giỏ</button>
+            `;
+            container.appendChild(item);
+          });
+
+          // Debug: Log the width of main and product-list
+          console.log('Main width:', document.querySelector('main').offsetWidth);
+          console.log('Product-list width:', document.getElementById('product-list').offsetWidth);
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+          document.getElementById('product-list').innerHTML = '<p>Đã xảy ra lỗi khi tải sản phẩm.</p>';
+        });
+    }
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', () => {
+        const variantId = button.getAttribute('data-variant-id');
+        fetch('/api/add_to_cart', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ variant_id: variantId })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Đã thêm vào giỏ hàng!');
+          } else {
+            alert('Có lỗi xảy ra: ' + data.message);
+          }
+        })
+        .catch(error => console.error('Lỗi:', error));
+      });
+    });
+  </script>
+</body>
+</html>

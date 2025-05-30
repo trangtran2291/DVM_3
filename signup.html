@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng ký tài khoản</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header a {
+      font-family: open sans-serif;
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #3498db;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      font-size: 16px;
+    }
+
+    header input[type="text"] {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    header input[type="text"]:focus {
+      border-color: #3498db;
+    }
+
+    header select {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .signup-container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #2c3e50;
+    }
+
+    input[type="ten_nguoi_dung"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+      outline: none;
+    }
+
+    input[type="ten_nguoi_dung"]:hover,
+    input[type="email"]:hover,
+    input[type="password"]:hover {
+      border-color: #3498db;
+      background-color: #fff;
+    }
+
+    input[type="ten_nguoi_dung"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #3498db;
+    }
+
+    input[type="submit"] {
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .success {
+      color: #27ae60;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .login-link {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<!-- Header -->
+    <header>
+        <div><a href="/"><strong>OCEAN BLISS</strong></a></div>
+        <input type="text" placeholder="Tìm kiếm..." />
+        <nav>
+        <a href="/">Trang chủ</a>
+        <a href="{{ url_for('custom_page') }}">Thiết kế riêng</a>
+        <a href="{{ url_for('lookbook') }}">Lookbook</a>
+        <a href="{{ url_for('contact') }}">Liên hệ</a>
+        </nav>
+
+        <div>
+        🛒 <a href="{{ url_for('cart') }}">Giỏ hàng</a> |
+        👤 <a href="/account">Tài khoản</a> |
+        <a href="{{ url_for('language') }}">Ngôn ngữ</a> |
+        🌐 <select><option>VNĐ</option><option>USD</option></select>
+        </div>
+    </header>
+
+  <div class="signup-container">
+    <h2>Đăng ký tài khoản</h2>
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+      <p class="success">{{ success }}</p>
+    {% endif %}
+    <form method="POST">
+      <label for="ten_nguoi_dung">Họ tên:</label>
+      <input type="ten_nguoi_dung" name="ten_nguoi_dung" required>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" required>
+
+      <label for="mat_khau">Mật khẩu:</label>
+      <input type="password" name="mat_khau" required>
+
+      <input type="submit" value="Đăng ký">
+    </form>
+    <div class="login-link">
+      Đã có tài khoản? <a href="/login">Đăng nhập</a>
+    </div>
+  </div>
+</body>
+</html>

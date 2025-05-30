@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liên hệ - Đồ bơi thiết kế riêng</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header a {
+      font-family: open sans-serif;
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #3498db;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      font-size: 16px;
+    }
+
+    header input[type="text"] {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    header input[type="text"]:focus {
+      border-color: #3498db;
+    }
+
+    header select {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 80px;
+      padding: 30px;
+      flex: 1;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 0; /* Remove padding to match main's padding */
+    }
+
+    .contact-info, .contact-form {
+      flex: 1;
+      min-width: 300px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-info ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .contact-info li {
+      margin-bottom: 1rem;
+    }
+
+    .contact-info li::before {
+      margin-right: 0.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form input, form select, form textarea {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      outline: none;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    form input:hover, form select:hover, form textarea:hover {
+      border-color: #3498db;
+      background-color: #fff;
+    }
+
+    form input:focus, form select:focus, form textarea:focus {
+      border-color: #3498db;
+    }
+
+    form button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: #2980b9;
+    }
+
+    .map {
+      margin: 2rem 0;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .chat-widget button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: #006aff;
+      color: white;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .chat-widget button:hover {
+      background-color: #0052cc;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      main {
+        padding: 20px;
+      }
+      .container {
+        flex-direction: column;
+      }
+      .chat-widget {
+        right: 10px;
+        bottom: 10px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .product-list {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div><a href="/"><strong>OCEAN BLISS</strong></a></div>
+    <input type="text" placeholder="Tìm kiếm..." />
+    <nav>
+      <a href="/">Trang chủ</a>
+      <a href="{{ url_for('custom_page') }}">Thiết kế riêng</a>
+      <a href="{{ url_for('lookbook') }}">Lookbook</a>
+      <a href="{{ url_for('contact') }}">Liên hệ</a>
+    </nav>
+    <div>
+      🛒 <a href="{{ url_for('cart') }}">Giỏ hàng</a> |
+      👤 <a href="/account">Tài khoản</a> |
+      <a href="{{ url_for('language') }}">Ngôn ngữ</a> |
+      🌐 <select><option>VNĐ</option><option>USD</option></select>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="contact-info">
+        <h2>Thông tin liên hệ</h2>
+        <ul>
+          <li>📍 360, Nguyễn Tri Phương, Quận 10, TPHCM</li>
+          <li>📧 oceanbliss@gmail.com</li>
+          <li>☎️ 0803 056 547 (Zalo/Viber)</li>
+          <li>⏰ Thứ 2 - Thứ 7 | 8:00 - 17:00</li>
+          <li>🔗 <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">TikTok</a></li>
+        </ul>
+      </div>
+
+      <div class="contact-form">
+        <h2>Gửi yêu cầu hỗ trợ</h2>
+        <form id="supportForm">
+          <input type="text" placeholder="Họ và tên" required>
+          <input type="email" placeholder="Email" required>
+          <input type="text" placeholder="Số điện thoại" required>
+          <select required>
+            <option value="">Chọn danh mục</option>
+            <option>Thiết kế riêng</option>
+            <option>Đơn hàng</option>
+            <option>Góp ý</option>
+            <option>Khác</option>
+          </select>
+          <textarea rows="5" placeholder="Nội dung cần hỗ trợ" required></textarea>
+          <input type="file">
+          <label><input type="checkbox" required> Tôi đồng ý với chính sách bảo mật</label>
+          <button type="submit">Gửi yêu cầu</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="map">
+      <h2>Bản đồ</h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.123456!2d106.700000!3d10.776889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x123abc!2zQ8O0bmcgdHkgQ8O0bmc!5e0!3m2!1svi!2s!4v1612334567890" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </main>
+
+  <div class="chat-widget">
+    <button onclick="window.open('https://m.me/tenpagefb', '_blank')">💬 Messenger</button>
+    <button onclick="window.open('https://zalo.me/123456789', '_blank')">💬 Zalo</button>
+  </div>
+
+  <footer>
+    © 2025 Đồ bơi thiết kế riêng. Liên hệ: <a href="mailto:contact@example.com">contact@example.com</a>
+  </footer>
+
+  <script>
+    document.getElementById('supportForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>

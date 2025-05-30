@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lookbook - Đồ bơi thiết kế riêng</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; font-family: open sans-serif;
+      background: #fff;
+      color: #333;
+      line-height: 1.5;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header a {
+      font-family: open sans-serif;
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #3498db;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      font-size: 16px;
+    }
+
+    header input[type="text"] {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    header input[type="text"]:focus {
+      border-color: #3498db;
+    }
+
+    header select {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    button {
+      cursor: pointer;
+      border: none;
+      padding: 0.6em 1.2em;
+      border-radius: 4px;
+      background-color: black;
+      color: white;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: black;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2em 0;
+    }
+
+    /* 1. Hero Banner */
+    section .hero-banner{
+      padding-top: 80px;
+    }
+    .hero-banner {
+      margin-top: 50px;
+      position: relative;
+      height: 400px;
+      background: url("{{ url_for('static', filename='lb1.jpg') }}") no-repeat center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 5%;
+      color: white;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+    .hero-banner-content {
+      max-width: 450px;
+    }
+    .hero-banner h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5em;
+      font-weight: 700;
+    }
+    .hero-banner p {
+      font-size: 1.2rem;
+      margin-bottom: 1em;
+      font-style: italic;
+    }
+
+    /* 2. Lookbook Grid */
+    .lookbook-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5em;
+      margin-top: 3em;
+    }
+    .lookbook-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+      transition: transform 0.3s ease;
+    }
+    .lookbook-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .lookbook-item:hover img {
+      transform: scale(1.1);
+    }
+    .lookbook-overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 1em;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .lookbook-item:hover .lookbook-overlay {
+      opacity: 1;
+    }
+    .lookbook-overlay .caption {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .lookbook-overlay button {
+      background: black;
+      font-size: 0.9rem;
+      padding: 0.3em 0.8em;
+      border-radius: 20px;
+    }
+
+    /* 3. Video Highlight */
+    .video-highlight {
+      margin: 4em auto;
+      max-width: 900px;
+      position: relative;
+      aspect-ratio: 16 / 9;
+      box-shadow: 0 2px 15px rgb(0 0 0 / 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .video-highlight video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      padding: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+    .video-overlay:hover {
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .video-overlay::before {
+      content: '';
+      display: inline-block;
+      margin-left: 5px;
+      border-style: solid;
+      border-width: 12px 0 12px 20px;
+      border-color: transparent transparent transparent black;
+    }
+
+    /* 4. Shop the look */
+    .shop-the-look {
+      margin-top: 4em;
+    }
+    .shop-the-look h2 {
+      margin-bottom: 1em;
+      text-align: center;
+      font-size: 2rem;
+      color: black;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5em;
+    }
+    .product-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1em;
+      text-align: center;
+      box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 14px rgb(0 0 0 / 0.2);
+    }
+    .product-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 0.5em;
+    }
+    .product-card .product-name {
+      font-weight: 700;
+      margin: 0.3em 0;
+      color: #333;
+    }
+    .product-card .product-price {
+      color: black;
+      font-weight: 600;
+      margin-bottom: 0.6em;
+    }
+
+    /* 5. Brand Story */
+    .brand-story {
+      display: flex;
+      gap: 2em;
+      margin: 5em 0 3em;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .brand-story img {
+      flex: 1 1 350px;
+      max-width: 450px;
+      border-radius: 12px;
+      object-fit: cover;
+      height: 300px;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.15);
+    }
+    .brand-story-content {
+      flex: 2 1 400px;
+    }
+    .brand-story-content h2 {
+      color: black;
+      margin-bottom: 0.5em;
+    }
+    .brand-story-content p {
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* 6. CTA Form */
+    .cta-form {
+      background-color: black;
+      padding: 3em 1em;
+      color: white;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 4em;
+    }
+    .cta-form h2 {
+      margin-bottom: 0.6em;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    .cta-form form {
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.8em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-form input[type="email"] {
+      padding: 0.7em 1em;
+      border-radius: 25px;
+      border: none;
+      flex: 1 1 250px;
+      font-size: 1rem;
+      outline: none;
+    }
+    .cta-form button {
+      flex: 0 0 auto;
+      border-radius: 25px;
+      padding: 0.7em 1.4em;
+      font-weight: 700;
+      font-size: 1rem;
+      background-color: white;
+      color: black;
+      transition: background-color 0.3s ease;
+    }
+    .cta-form button:hover {
+      background-color: gray;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .brand-story {
+        flex-direction: column;
+      }
+      .brand-story img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div><a href="/"><strong>OCEAN BLISS</strong></a></div>
+    <input type="text" placeholder="Tìm kiếm..." />
+    <nav>
+      <a href="/">Trang chủ</a>
+      <a href="{{ url_for('custom_page') }}">Thiết kế riêng</a>
+      <a href="{{ url_for('lookbook') }}">Lookbook</a>
+      <a href="{{ url_for('contact') }}">Liên hệ</a>
+    </nav>
+    <div>
+      🛒 <a href="{{ url_for('cart') }}">Giỏ hàng</a> |
+      👤 <a href="/account">Tài khoản</a> |
+      <a href="{{ url_for('language') }}">Ngôn ngữ</a> |
+      🌐 <select><option>VNĐ</option><option>USD</option></select>
+    </div>
+  </header>
+
+  <!-- 1. Hero Banner -->
+  <section class="hero-banner" role="banner">
+    <div class="hero-banner-content">
+      <h1>Summer is calling</h1>
+      <p>Swimwear designed for your soul</p>
+      <button>Khám phá BST</button>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- 2. Lookbook Grid -->
+    <section class="lookbook-grid" aria-label="Lookbook sản phẩm">
+      <div class="lookbook-item" tabindex="0">
+        <img src="{{ url_for('static', filename='lb2.jpg') }}" alt="Đồ bơi Tropical Chic" />
+        <div class="lookbook-overlay">
+          <span class="caption">Tropical Chic</span>
+          <button aria-label="Xem chi tiết Tropical Chic">Xem ngay</button>
+        </div>
+      </div>
+      <div class="lookbook-item" tabindex="0">
+        <img src="{{ url_for('static', filename='lb3.jpg') }}" alt="Đồ bơi Classic Blue" />
+        <div class="lookbook-overlay">
+          <span class="caption">Classic Blue</span>
+          <button aria-label="Xem chi tiết Classic Blue">Xem ngay</button>
+        </div>
+      </div>
+      <div class="lookbook-item" tabindex="0">
+        <img src="{{ url_for('static', filename='lb4.jpg') }}" alt="Đồ bơi Coral Sunset" />
+        <div class="lookbook-overlay">
+          <span class="caption">Coral Sunset</span>
+          <button aria-label="Xem chi tiết Coral Sunset">Xem ngay</button>
+        </div>
+      </div>
+      <div class="lookbook-item" tabindex="0">
+        <img src="{{ url_for('static', filename='lb5.jpg') }}" alt="Đồ bơi Ocean Breeze" />
+        <div class="lookbook-overlay">
+          <span class="caption">Ocean Breeze</span>
+          <button aria-label="Xem chi tiết Ocean Breeze">Xem ngay</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Video Highlight -->
+    <section class="video-highlight" aria-label="Video giới thiệu sản phẩm">
+      <video controls poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80">
+        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm" />
+        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4" />
+        Trình duyệt của bạn không hỗ trợ video.
+      </video>
+    </section>
+
+    <!-- 4. Shop the look -->
+    <section class="shop-the-look" aria-label="Mua sắm sản phẩm">
+      <h2>Mua sắm bộ sưu tập</h2>
+      <div class="products-grid">
+        <div class="product-card" tabindex="0">
+          <img src="{{ url_for('static', filename='lb6.jpg') }}" alt="Đồ bơi Tropical Chic" />
+          <div class="product-name">Tropical Chic</div>
+          <div class="product-price">₫1,200,000</div>
+          <button>Thêm vào giỏ</button>
+        </div>
+        <div class="product-card" tabindex="0">
+          <img src="{{ url_for('static', filename='lb7.jpg') }}" alt="Đồ bơi Classic Blue" />
+          <div class="product-name">Classic Blue</div>
+          <div class="product-price">₫980,000</div>
+          <button>Thêm vào giỏ</button>
+        </div>
+        <div class="product-card" tabindex="0">
+          <img src="{{ url_for('static', filename='lb8.jpg') }}" alt="Đồ bơi Coral Sunset" />
+          <div class="product-name">Coral Sunset</div>
+          <div class="product-price">₫1,350,000</div>
+          <button>Thêm vào giỏ</button>
+        </div>
+        <div class="product-card" tabindex="0">
+          <img src="{{ url_for('static', filename='lb9.jpg') }}" alt="Đồ bơi Ocean Breeze" />
+          <div class="product-name">Ocean Breeze</div>
+          <div class="product-price">₫1,100,000</div>
+          <button>Thêm vào giỏ</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Brand Story -->
+    <section class="brand-story" aria-label="Câu chuyện thương hiệu">
+      <img src="{{ url_for('static', filename='lb10.jpg') }}" alt="Hình ảnh đại diện câu chuyện thương hiệu" />
+      <div class="brand-story-content">
+        <h2>Thiết kế tinh tế, dành riêng cho bạn</h2>
+        <p>
+          Bộ sưu tập đồ bơi của chúng tôi được thiết kế tỉ mỉ, lấy cảm hứng từ vẻ đẹp của biển xanh và ánh nắng rực rỡ.
+          Mỗi sản phẩm mang đậm dấu ấn cá nhân, giúp bạn tự tin và thoải mái khi tận hưởng mùa hè.
+          Chúng tôi cam kết sử dụng chất liệu cao cấp, thân thiện với môi trường, cùng quy trình sản xuất bền vững.
+        </p>
+      </div>
+    </section>
+
+    <!-- 6. CTA Form -->
+    <section class="cta-form" aria-label="Đăng ký nhận tin ưu đãi">
+      <h2>Nhận tin ưu đãi & cập nhật mới nhất</h2>
+      <form action="#" method="post" onsubmit="alert('Cảm ơn bạn đã đăng ký!'); return false;">
+        <input type="email" name="email" placeholder="Nhập email của bạn" required aria-label="Email đăng ký nhận tin" />
+        <button type="submit">Đăng ký</button>
+      </form>
+    </section>
+  </div>
+</body>
+</html>

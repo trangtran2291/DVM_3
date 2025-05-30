@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chuyển đổi ngôn ngữ</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header a {
+      font-family: open sans-serif;
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #3498db;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      font-size: 16px;
+    }
+
+    header input[type="text"] {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    header input[type="text"]:focus {
+      border-color: #3498db;
+    }
+
+    header select {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 70px;
+    }
+
+    h1 {
+      color: #0066cc;
+      margin-bottom: 0.5rem;
+    }
+
+    p.description {
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    .lang-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .lang-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      min-width: 120px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .lang-card:hover {
+      background-color: #e6f0ff;
+      transform: scale(1.03);
+    }
+
+    .lang-card.active {
+      border-color: #0066cc;
+      background-color: #e0f3ff;
+      font-weight: bold;
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .lang-card {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Header -->
+  <header>
+      <div><a href="/"><strong>OCEAN BLISS</strong></a></div>
+      <input type="text" placeholder="Tìm kiếm..." />
+      <nav>
+      <a href="/">Trang chủ</a>
+      <a href="{{ url_for('custom_page') }}">Thiết kế riêng</a>
+      <a href="{{ url_for('lookbook') }}">Lookbook</a>
+      <a href="{{ url_for('contact') }}">Liên hệ</a>
+      </nav>
+
+      <div>
+      🛒 <a href="{{ url_for('cart') }}">Giỏ hàng</a> |
+      👤 <a href="/account">Tài khoản</a> |
+      <a href="{{ url_for('language') }}">Ngôn ngữ</a> |
+      🌐 <select><option>VNĐ</option><option>USD</option></select>
+      </div>
+  </header>
+
+  <div class="container">
+    <h1>🌐 Chọn ngôn ngữ của bạn</h1>
+    <p class="description">Bạn muốn trải nghiệm website bằng ngôn ngữ nào? Chúng tôi hỗ trợ nhiều ngôn ngữ để bạn cảm thấy thoải mái nhất.</p>
+
+    <div class="lang-grid">
+      <div class="lang-card active" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</div>
+      <div class="lang-card" onclick="setLanguage('en')">🇬🇧 English</div>
+      <div class="lang-card" onclick="setLanguage('fr')">🇫🇷 Français</div>
+      <div class="lang-card" onclick="setLanguage('ja')">🇯🇵 日本語</div>
+      <div class="lang-card" onclick="setLanguage('ko')">🇰🇷 한국어</div>
+    </div>
+
+    <p class="footer-note">Ngôn ngữ hiện tại: <strong id="current-lang">Tiếng Việt</strong></p>
+  </div>
+
+  <script>
+    function setLanguage(langCode) {
+      const langMap = {
+        vi: "Tiếng Việt",
+        en: "English",
+        fr: "Français",
+        ja: "日本語",
+        ko: "한국어"
+      };
+
+      // Highlight active card
+      document.querySelectorAll('.lang-card').forEach(card => {
+        card.classList.remove('active');
+      });
+
+      const selected = document.querySelector(`.lang-card[onclick*="${langCode}"]`);
+      if (selected) selected.classList.add('active');
+
+      // Cập nhật ngôn ngữ hiện tại
+      document.getElementById("current-lang").textContent = langMap[langCode];
+
+      // Mô phỏng hành động chuyển đổi (ở thực tế sẽ redirect hoặc reload với locale)
+      alert(`🔄 Ngôn ngữ đã được chuyển sang: ${langMap[langCode]}`);
+    }
+  </script>
+</body>
+</html>
