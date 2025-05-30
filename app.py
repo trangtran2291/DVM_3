@@ -73,6 +73,8 @@ def login():
 
 # Homepage route
 @app.route('/')
+def homepage():
+    
 def get_all_products():
     conn = get_db_connection()
     query = """
@@ -122,6 +124,8 @@ def filter_products():
     conn.close()
 
     return jsonify([dict(row) for row in products])
+ 
+    return render_template('homepage.html')
 
 # Custompage route
 @app.route('/custompage')
