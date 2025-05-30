@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 import sqlite3
 import bcrypt
+import os
+
 
 app = Flask(__name__)
 app.secret_key = '******'
